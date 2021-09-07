@@ -1,0 +1,11 @@
+.card-container {
+  margin-top: 100px;
+}
+
+.login-card {
+  box-shadow: 0 0 16px 0 var(--success);
+  border-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 60px;
+  padding: 5%;
+}

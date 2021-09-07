@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+const root = require('../root');
+const path = require('path');
+const readline = require('readline-sync');
+const userModel = require('../models/user');
+const process = require('process');
+const { getAppEvent } = require('../config/app');
+
+/**
+ * Execute user update process, as soon as connected to database!
+ */
+console.log("add-admin: Update app admin");
+const appEvent = getAppEvent();
+appEvent.on('database.connect', async () => {
+    await main();
+});
+
+readline.setDefaultOptions({
+    prompt: 'Attendence Management System >'
+});
+
+require('dotenv').config({
+    path: path.join(root, '.env')
+});
+
+require('../config/mongoose');
+
+async function main() {
+    let firstName, lastName, email, password; 
+
+    const response = readline.question("This would delete/update exising admin, continue? (Y/n) ");
+    if (response != "Y")
+        process.exit(1);
+
+    do {
+        firstName = readline.question('First Name: ');
+    } while (!firstName);
+
+    do {
+        lastName = readline.question('Last Name: ');
+    } while (!lastName);
+
+    email = readline.questionEMail('Email Address: ');
+    password = readline.questionNewPassword('Password: ', { min: 8, max: 16 });
+
+    await userModel.deleteMany({});
+    const user = await userModel.create({
+        firstName,
+        lastName,
+        email,
+        hash: password
+    });
+
+    const userObj = JSON.parse(JSON.stringify(user)); // would call toJSON, that deletes `hash`
+    console.log(userObj);
+    process.exit(0);
+}

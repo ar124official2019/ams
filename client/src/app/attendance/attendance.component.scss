@@ -1,0 +1,46 @@
+i.present {
+  color: var(--success);
+}
+
+button.present:focus {
+  color: var(--success) !important;
+  border: 1px solid green !important;
+}
+
+i.absent {
+  color: var(--danger);
+}
+
+button.absent:focus {
+  color: var(--success) !important;
+  border: 1px solid red !important;
+}
+
+.fab {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  padding: 20px;
+  background-color: transparent !important;
+
+  .fab-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none !important;
+    box-shadow: 0 0 8px 0 var(--primary);
+    color: white;
+  }
+
+  .fab-button:hover {
+    box-shadow: 0 0 4px 0 !important;
+  }
+
+  .fab-button.success {
+    background-color: var(--success) !important;
+  }
+
+  .fab-button.danger {
+    background-color: var(--danger) !important;
+  }
+}

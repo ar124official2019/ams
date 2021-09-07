@@ -1,0 +1,4 @@
+/**
+ * cookie strategy
+ */
+require('./cookie');

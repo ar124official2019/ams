@@ -1,0 +1,9 @@
+<section class="mt-4 w-75 mx-auto">
+  <div class="flex-fill px-2">
+    <h2 class="text-left">{{ date | date }}</h2>
+
+    <hr>
+
+  </div>
+  <ngb-datepicker #d class="" [startDate]="maxDate" (dateSelect)="onDate.next($event.day)" [maxDate]="maxDate"></ngb-datepicker>
+</section>

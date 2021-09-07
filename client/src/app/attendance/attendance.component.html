@@ -1,0 +1,81 @@
+<ng-container *ngIf="summary && students">
+  <main class="w-100">
+    <app-attendance-header [summary]="summary" [date]="date" (onDate)="changeDate($event)"></app-attendance-header>
+    <br>
+
+    <section>
+      <table class="table table-striped w-75 mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">Roll #</th>
+            <th scope="col">Name</th>
+            <th scope="col">Present</th>
+            <th scope="col">Absent</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+
+            <td>
+              <button (click)="setPresent(student.id, true)" autofocus [disabled]="loading" class="present btn btn-light btn-sm"
+                *ngIf="loading != student.id || isPresent(student.id); else spinner">
+                <ng-container *ngIf="!isPresent(student.id); else present">
+                  <i class="present bi bi-circle"></i>
+                </ng-container>
+              </button>
+
+              <ng-template #spinner>
+                <i class="spinner spinner-border spinner-sm text-success"></i>
+              </ng-template>
+
+              <ng-template #present>
+                <i class="present bi bi-circle-fill"></i>
+              </ng-template>
+            </td>
+
+            <td>
+              <button (click)="setPresent(student.id, false)" autofocus [disabled]="loading" class="present btn btn-light btn-sm"
+                *ngIf="loading != student.id || !isPresent(student.id); else spinner">
+                <ng-container *ngIf="isPresent(student.id); else absent">
+                  <i class="absent bi bi-circle"></i>
+                </ng-container>
+              </button>
+
+              <ng-template #spinner>
+                <i class="spinner spinner-border spinner-sm text-danger"></i>
+              </ng-template>
+
+              <ng-template #absent>
+                <i class="absent bi bi-circle-fill"></i>
+              </ng-template>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+
+            <td>
+              <i class="present bi bi-circle-fill"></i>
+              <span class="pl-2">{{ presentCount }}</span>
+              <span class="pl-2">({{ ((presentCount * 100) / students.length) / 100 * 100 }}%)</span>
+            </td>
+
+            <td>
+              <i class="absent bi bi-circle-fill"></i>
+              <span class="pl-2">{{ absentCount }}</span>
+              <span class="pl-2">({{ ((absentCount * 100) / students.length) / 100 * 100 }}%)</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="fab">
+      <button class="fab-button success" *ngIf="!login" routerLink="/login">Login</button>
+      <button class="fab-button danger" *ngIf="login" routerLink="/logout">Logout</button>
+    </div>
+  </main>
+</ng-container>
