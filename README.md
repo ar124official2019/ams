@@ -11,7 +11,7 @@
 1. Clone the repository
 
     ```sh
-    git clone https://github.com/ar124officialwd/ams 
+    git clone https://github.com/ar124official2019/ams 
     ```
 
 2. Obtain a MongoDB Connection URI
